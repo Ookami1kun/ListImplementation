@@ -1,0 +1,15 @@
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\bin\Debug\net6.0\ListImplementation.exe
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\bin\Debug\net6.0\ListImplementation.deps.json
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\bin\Debug\net6.0\ListImplementation.runtimeconfig.json
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\bin\Debug\net6.0\ListImplementation.dll
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\bin\Debug\net6.0\ListImplementation.pdb
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.csproj.AssemblyReference.cache
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.AssemblyInfoInputs.cache
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.AssemblyInfo.cs
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.csproj.CoreCompileInputs.cache
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.dll
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\refint\ListImplementation.dll
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.pdb
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ListImplementation.genruntimeconfig.cache
+D:\Repositorie\ListImplementation\ListImplementation\ListImplementation\obj\Debug\net6.0\ref\ListImplementation.dll
