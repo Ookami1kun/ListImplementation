@@ -19,28 +19,20 @@
 
         public MyList(T[] inputArray)
         {
-            T[] newArray;
-
             if (inputArray.Length > _arrayList.Length)
             {
-                newArray = new T[inputArray.Length];
-            }
-            else
-            {
-                newArray = new T[_arrayList.Length];
+                _arrayList = new T[inputArray.Length];
             }
 
             for (int i = 0; i < inputArray.Length; i++)
             {
-                newArray[i] = inputArray[i];
+                _arrayList[i] = inputArray[i];
             }
 
             Count += inputArray.Length;
-
-            _arrayList = newArray;
         }
 
-        public MyList<T> Create()
+        public static MyList<T> Create()
         {
             return new MyList<T>();
         }
@@ -60,23 +52,25 @@
 
         public void Add(T addElement)
         {
-            var newArray = new T[_arrayList.Length];
-
-            if (Count >= CapacityOfList)
+            if (Count >= _arrayList.Length)
             {
-                newArray = new T[_arrayList.Length + 1];
-            }
+                var newArray = new T[_arrayList.Length + 1];
 
-            for (int i = 0; i < _arrayList.Length; i++)
+                for (int i = 0; i < _arrayList.Length; i++)
+                {
+                    newArray[i] = _arrayList[i];
+                }
+
+                newArray[Count] = addElement;
+
+                _arrayList = newArray;
+            }
+            else
             {
-                newArray[i] = _arrayList[i];
+                _arrayList[Count] = addElement;
             }
-
-            newArray[Count] = addElement;
 
             Count++;
-
-            _arrayList = newArray;
         }
 
         public void Clear()
@@ -87,35 +81,35 @@
 
         public void AddByIndex(int index, T addElement)
         {
-            if (index > CapacityOfList)
+            if (index > _arrayList.Length)
             {
                 Console.WriteLine("Такого индекса не сущесвует");
+                return;
             }
-            else
+
+            var newArray = new T[_arrayList.Length];
+
+            if (Count >= _arrayList.Length)
             {
-                var newArray = new T[_arrayList.Length];
-
-                if (Count >= CapacityOfList)
-                {
-                    newArray = new T[_arrayList.Length + 1];
-                }
-
-                for (int i = 0; i < index; i++)
-                {
-                    newArray[i] = _arrayList[i];
-                }
-
-                newArray[index] = addElement;
-
-                for (int i = index + 1; i < newArray.Length; i++)
-                {
-                    newArray[i] = _arrayList[i - 1];
-                }
-
-                _arrayList = newArray;
-
-                Count++;
+                newArray = new T[_arrayList.Length + 1];
             }
+
+            for (int i = 0; i < index; i++)
+            {
+                newArray[i] = _arrayList[i];
+            }
+
+            newArray[index] = addElement;
+
+            for (int i = index + 1; i < newArray.Length; i++)
+            {
+                newArray[i] = _arrayList[i - 1];
+            }
+
+            _arrayList = newArray;
+
+            Count++;
+
         }
 
         public void AddStart(T addElement)
@@ -188,14 +182,7 @@
             {
                 for (int i = 0; i < newArray.Length - 1; i++)
                 {
-                    if (i >= removeIndex)
-                    {
-                        newArray[i] = _arrayList[i + 1];
-                    }
-                    else
-                    {
-                        newArray[i] = _arrayList[i];
-                    }
+                    newArray[i] = i >= removeIndex ? _arrayList[i + 1] : _arrayList[i];
                 }
             }
 
@@ -216,26 +203,36 @@
             return RemoveByIndex(Count - 1);
         }
 
+        //public void RemoveRangeByIndex(int startingIndex, int lastIndex)
+        //{
+        //    T[] newArray = new T[_arrayList.Length];
+
+        //    int index = 0;
+
+        //    for (int i = 0; i < startingIndex; i++)
+        //    {
+        //        newArray[i] = _arrayList[i];
+        //        index++;
+        //    }
+
+        //    for (int i = lastIndex; i < _arrayList.Length; i++)
+        //    {
+        //        newArray[index++] = _arrayList[i];
+        //    }
+
+        //    Count -= lastIndex - startingIndex;
+
+        //    _arrayList = newArray;
+        //}
+
         public void RemoveRangeByIndex(int startingIndex, int lastIndex)
         {
-            T[] newArray = new T[_arrayList.Length];
-
-            int index = 0;
-
-            for (int i = 0; i < startingIndex; i++)
+            for (int i = 0; i < Count - (lastIndex - startingIndex); i++)
             {
-                newArray[i] = _arrayList[i];
-                index++;
-            }
-
-            for (int i = lastIndex; i < _arrayList.Length; i++)
-            {
-                newArray[index++] = _arrayList[i];
+                _arrayList[i] = _arrayList[i + lastIndex];
             }
 
             Count -= lastIndex - startingIndex;
-
-            _arrayList = newArray;
         }
 
         public void RemoveRangeStart(int lastIndex)
@@ -286,15 +283,17 @@
 
         public int FindIndexByValue(T searchIndex)
         {
+            int result = -1;
+
             for (int i = 0; i < Count; i++)
             {
                 if (searchIndex.CompareTo(_arrayList[i]) == 0)
                 {
-                    return i;
+                    result = i;
                 }
             }
 
-            return -1;
+            return result;
         }
 
         public int GetMinIndex()
@@ -309,48 +308,32 @@
 
         public T GetMin()
         {
-            var newArray = new T[_arrayList.Length];
-            T temp;
+            T min = _arrayList[0];
 
-            for (int i = 0; i < _arrayList.Length; i++)
+            for (int i = 0; i < Count - 1; i++)
             {
-                newArray[i] = _arrayList[i];
-            }
-
-            for (int i = 0; i < _arrayList.Length - 1; i++)
-            {
-                if (newArray[i].CompareTo(newArray[i + 1]) < 0)
+                if (_arrayList[i + 1].CompareTo(min) < 0)
                 {
-                    temp = newArray[i];
-                    newArray[i] = newArray[i + 1];
-                    newArray[i + 1] = temp;
+                    min = _arrayList[i + 1];
                 }
             }
 
-            return newArray[Count - 1];
+            return min;
         }
 
         public T GetMax()
         {
-            var newArray = new T[_arrayList.Length];
-            T temp;
+            T max = _arrayList[0];
 
-            for (int i = 0; i < _arrayList.Length; i++)
+            for (int i = 0; i < Count - 1; i++)
             {
-                newArray[i] = _arrayList[i];
-            }
-
-            for (int i = 0; i < _arrayList.Length - 1; i++)
-            {
-                if (newArray[i].CompareTo(newArray[i + 1]) > 0)
+                if (_arrayList[i + 1].CompareTo(max) > 0)
                 {
-                    temp = newArray[i + 1];
-                    newArray[i + 1] = newArray[i];
-                    newArray[i] = temp;
+                    max = _arrayList[i];
                 }
             }
 
-            return newArray[Count - 1];
+            return max;
         }
 
         public void Sort()
