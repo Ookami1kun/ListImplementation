@@ -4,6 +4,8 @@
     {
         private T[] _arrayList = new T[8];
 
+        const string stringSplitting = " ";
+
         public int CapacityOfList { get; }
         public int Count { get; private set; }
 
@@ -52,25 +54,7 @@
 
         public void Add(T addElement)
         {
-            if (Count >= _arrayList.Length)
-            {
-                var newArray = new T[_arrayList.Length + 1];
-
-                for (int i = 0; i < _arrayList.Length; i++)
-                {
-                    newArray[i] = _arrayList[i];
-                }
-
-                newArray[Count] = addElement;
-
-                _arrayList = newArray;
-            }
-            else
-            {
-                _arrayList[Count] = addElement;
-            }
-
-            Count++;
+            AddByIndex(Count, addElement);
         }
 
         public void Clear()
@@ -115,11 +99,6 @@
         public void AddStart(T addElement)
         {
             AddByIndex(0, addElement);
-        }
-
-        public void AddEnd(T addElement)
-        {
-            AddByIndex(Count, addElement);
         }
 
         //ebanaya nerabotayushaya parasha nahui
@@ -203,37 +182,37 @@
             return RemoveByIndex(Count - 1);
         }
 
-        //public void RemoveRangeByIndex(int startingIndex, int lastIndex)
-        //{
-        //    T[] newArray = new T[_arrayList.Length];
-
-        //    int index = 0;
-
-        //    for (int i = 0; i < startingIndex; i++)
-        //    {
-        //        newArray[i] = _arrayList[i];
-        //        index++;
-        //    }
-
-        //    for (int i = lastIndex; i < _arrayList.Length; i++)
-        //    {
-        //        newArray[index++] = _arrayList[i];
-        //    }
-
-        //    Count -= lastIndex - startingIndex;
-
-        //    _arrayList = newArray;
-        //}
-
         public void RemoveRangeByIndex(int startingIndex, int lastIndex)
         {
-            for (int i = 0; i < Count - (lastIndex - startingIndex); i++)
+            T[] newArray = new T[_arrayList.Length];
+
+            int index = 0;
+
+            for (int i = 0; i < startingIndex; i++)
             {
-                _arrayList[i] = _arrayList[i + lastIndex];
+                newArray[i] = _arrayList[i];
+                index++;
+            }
+
+            for (int i = lastIndex; i < _arrayList.Length; i++)
+            {
+                newArray[index++] = _arrayList[i];
             }
 
             Count -= lastIndex - startingIndex;
+
+            _arrayList = newArray;
         }
+
+        //public void RemoveRangeByIndex(int startingIndex, int lastIndex)
+        //{
+        //    for (int i = 0; i < Count - (lastIndex - startingIndex); i++)
+        //    {
+        //        _arrayList[i] = _arrayList[i + lastIndex];
+        //    }
+
+        //    Count -= lastIndex - startingIndex;
+        //}
 
         public void RemoveRangeStart(int lastIndex)
         {
@@ -392,9 +371,9 @@
 
         public override string ToString()
         {
-            string value = String.Join<T>("&", _arrayList);
+            string stringList = String.Join<T>(stringSplitting, _arrayList);
 
-            return value;
+            return stringList;
         }
 
         public T[] ToArray()
